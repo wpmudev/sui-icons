@@ -1,4 +1,4 @@
-@use './variables';
+@use './variables' as *;
 
 @font-face {
 	font-family: '#{$font-family}';
@@ -29,7 +29,7 @@
 @each $icon-name, $code-code in $suicons {
 	.suicons--#{$icon-name} {
 		&:before {
-			content: $code;
+			content: $code-code;
 		}
 	}
 }

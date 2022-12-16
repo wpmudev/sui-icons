@@ -14,6 +14,7 @@ const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const header = require('gulp-header');
 const prettier = require('gulp-prettier');
+const process = require('process');
 
 /**
  * Development Paths & Files
@@ -63,7 +64,7 @@ const browsersList = ['last 2 version', '> 1%'];
 
 function compile() {
 	return gulp
-		.src(inputPath)
+		.src(inputPath + 'scss/*')
 		.pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
 		.pipe(autoprefixer(browsersList))
 		.pipe(header(banner))
@@ -78,14 +79,24 @@ function compile() {
 }
 
 /**
+ * Copying files.
+ * Copy source files to dist folder.
+ *
+ * @since 1.0.0
+ */
+function copyFiles() {
+	return gulp.src(inputPath + '**')
+		.pipe( gulp.dest( 'dist/' ) )
+		;
+}
+
+/**
  * Run tasks.
  * Use Gulp to run compiling tasks.
  *
  * @since 1.0.0
  */
 
-gulp.task('build', compile);
-
-const build = gulp.task('build');
+const build = gulp.parallel(copyFiles, compile);
 
 build();
