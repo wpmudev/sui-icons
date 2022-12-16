@@ -64,7 +64,7 @@ const browsersList = ['last 2 version', '> 1%'];
 
 function compile() {
 	return gulp
-		.src(inputPath + 'scss/*')
+		.src(inputPath + '/scss/*')
 		.pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
 		.pipe(autoprefixer(browsersList))
 		.pipe(header(banner))
@@ -85,7 +85,7 @@ function compile() {
  * @since 1.0.0
  */
 function copyFiles() {
-	return gulp.src(inputPath + '**')
+	return gulp.src(inputPath + '/**')
 		.pipe( gulp.dest( 'dist/' ) )
 		;
 }
